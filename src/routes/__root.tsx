@@ -23,6 +23,20 @@ export const Route = createRootRoute({
         rel: "stylesheet",
         href: appCss,
       },
+      {
+        rel: "preload",
+        href: "/AwesomeSerif-MediumRegular.woff2",
+        as: "font",
+        type: "font/woff2",
+        crossOrigin: "anonymous",
+      },
+      {
+        rel: "preload",
+        href: "/AwesomeSerif-Regular.woff2",
+        as: "font",
+        type: "font/woff2",
+        crossOrigin: "anonymous",
+      },
     ],
   }),
   notFoundComponent: () => (
@@ -36,7 +50,7 @@ export const Route = createRootRoute({
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <head>
         <HeadContent />
       </head>

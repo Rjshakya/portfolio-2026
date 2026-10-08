@@ -1,19 +1,50 @@
 import { createFileRoute } from "@tanstack/react-router"
-import { Button } from "@/components/ui/button"
+import { useLayoutEffect, useState } from "react"
+import { AnimatePresence, useReducedMotion } from "motion/react"
 
-export const Route = createFileRoute("/")({ component: App })
+import { PixelLoader } from "@/components/loader/PixelLoader"
+import { HeroSection } from "./-components/hero/HeroSection"
+import { HeroDecor } from "./-components/hero/HeroDecor"
+import { ProjectsSection } from "./-components/projects/ProjectsSection"
+import { InterestsSection } from "./-components/interests/InterestsSection"
+import { TileFooter } from "./-components/footer/TileFooter"
+import { FullBleedRule } from "@/components/loader/FullBleedRuler"
 
-function App() {
+export const Route = createFileRoute("/")({ component: HomePage })
+
+function HomePage() {
+  const [loading, setLoading] = useState(true)
+  const reduceMotion = useReducedMotion()
+
+  useLayoutEffect(() => {
+    const duration = reduceMotion ? 200 : 2300
+    const timer = window.setTimeout(() => setLoading(false), duration)
+    return () => window.clearTimeout(timer)
+  }, [reduceMotion])
+
+
   return (
-    <div className="flex min-h-svh p-6">
-      <div className="flex max-w-md min-w-0 flex-col gap-4 text-sm leading-loose">
-        <div>
-          <h1 className="font-medium">Project ready!</h1>
-          <p>You may now add components and start building.</p>
-          <p>We&apos;ve already added the button component for you.</p>
-          <Button className="mt-2">Button</Button>
+    <>
+      <AnimatePresence>
+        {loading && <PixelLoader key="pixel-loader" />}
+      </AnimatePresence>
+      <main className="relative z-10 overflow-x-clip bg-background  px-8 md:px-10">
+        <HeroDecor />
+
+        <div className="mx-auto max-w-2xl border-x outline-1 outline-offset-18 outline-border md:outline-offset-22">
+          <HeroSection />
+          <div className="w-screen h-50" />
+          <ProjectsSection />
+          <div className="w-screen h-50" />
+          <InterestsSection />
+          <div className="w-screen h-50" />
+          <FullBleedRule className="mb-5" />
+          <FullBleedRule className="" />
         </div>
-      </div>
-    </div>
+      </main>
+      {/* Scroll room so the fixed footer is uncovered at the end. */}
+      <div aria-hidden="true" className="relative z-10 h-screen" />
+      <TileFooter />
+    </>
   )
 }
