@@ -43,7 +43,10 @@ function HomePage() {
         </div>
       </main>
       {/* Scroll room so the fixed footer is uncovered at the end. */}
-      <div aria-hidden="true" className="relative z-10 h-screen" />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none relative z-10 h-screen"
+      />
       <TileFooter />
     </>
   )

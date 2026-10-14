@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { color, motion, useAnimate, useReducedMotion } from "motion/react"
+import { motion, useAnimate, useReducedMotion } from "motion/react"
 
 import { GrainLinkButton } from "./GrainLinkButton"
 import type { GrainLinkTone } from "./GrainLinkButton"
