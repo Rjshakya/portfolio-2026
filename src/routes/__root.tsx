@@ -15,10 +15,122 @@ export const Route = createRootRoute({
         content: "width=device-width, initial-scale=1",
       },
       {
-        title: "TanStack Start Starter",
+        title: "Raj Shakya — Product Engineer",
+      },
+      {
+        name: "description",
+        content:
+          "Raj Shakya, Product Engineer from Delhi, India. I design and build fast, playful web experiences.",
+      },
+      {
+        name: "author",
+        content: "Raj Shakya",
+      },
+      {
+        name: "theme-color",
+        content: "#151515",
+      },
+      {
+        name: "color-scheme",
+        content: "dark",
+      },
+      {
+        name: "robots",
+        content: "index, follow",
+      },
+      {
+        property: "og:type",
+        content: "website",
+      },
+      {
+        property: "og:site_name",
+        content: "Raj Shakya — Product Engineer",
+      },
+      {
+        property: "og:title",
+        content: "Raj Shakya — Product Engineer",
+      },
+      {
+        property: "og:description",
+        content:
+          "Raj Shakya, Product Engineer from Delhi, India. I design and build fast, playful web experiences.",
+      },
+      {
+        property: "og:url",
+        content: "https://rajshakya.dev/",
+      },
+      {
+        property: "og:image",
+        content: "https://rajshakya.dev/og.png",
+      },
+      {
+        property: "og:image:width",
+        content: "2400",
+      },
+      {
+        property: "og:image:height",
+        content: "1260",
+      },
+      {
+        property: "og:image:alt",
+        content: "Raj's Portfolio — 2026",
+      },
+      {
+        property: "og:image:type",
+        content: "image/png",
+      },
+      {
+        property: "og:locale",
+        content: "en_IN",
+      },
+      {
+        name: "twitter:card",
+        content: "summary_large_image",
+      },
+      {
+        name: "twitter:title",
+        content: "Raj Shakya — Product Engineer",
+      },
+      {
+        name: "twitter:description",
+        content:
+          "Raj Shakya, Product Engineer from Delhi, India. I design and build fast, playful web experiences.",
+      },
+      {
+        name: "twitter:image",
+        content: "https://rajshakya.dev/og.png",
+      },
+      {
+        name: "twitter:image:alt",
+        content: "Raj's Portfolio — 2026",
+      },
+      {
+        name: "twitter:site",
+        content: "@RajShak96083714",
+      },
+      {
+        name: "twitter:creator",
+        content: "@RajShak96083714",
       },
     ],
     links: [
+      {
+        rel: "canonical",
+        href: "https://rajshakya.dev/",
+      },
+      {
+        rel: "icon",
+        type: "image/png",
+        href: "/icon.png",
+      },
+      {
+        rel: "apple-touch-icon",
+        href: "/icon.png",
+      },
+      {
+        rel: "manifest",
+        href: "/manifest.json",
+      },
       {
         rel: "stylesheet",
         href: appCss,
