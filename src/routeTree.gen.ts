@@ -10,7 +10,10 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LabRouteRouteImport } from './routes/lab/route'
 import { Route as StyleGuideRouteRouteImport } from './routes/style-guide/route'
+import { Route as LabIndexRouteImport } from './routes/lab/index'
+import { Route as LabCanvasCcRouteRouteImport } from './routes/lab/canvas-cc/route'
 import { Route as StyleGuideIndexRouteImport } from './routes/style-guide/index'
 
 const IndexRoute = IndexRouteImport.update({
@@ -18,10 +21,25 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LabRouteRoute = LabRouteRouteImport.update({
+  id: '/lab',
+  path: '/lab',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const StyleGuideRouteRoute = StyleGuideRouteRouteImport.update({
   id: '/style-guide',
   path: '/style-guide',
   getParentRoute: () => rootRouteImport,
+} as any)
+const LabIndexRoute = LabIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LabRouteRoute,
+} as any)
+const LabCanvasCcRouteRoute = LabCanvasCcRouteRouteImport.update({
+  id: '/canvas-cc',
+  path: '/canvas-cc',
+  getParentRoute: () => LabRouteRoute,
 } as any)
 const StyleGuideIndexRoute = StyleGuideIndexRouteImport.update({
   id: '/',
@@ -31,29 +49,46 @@ const StyleGuideIndexRoute = StyleGuideIndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/lab': typeof LabRouteRouteWithChildren
   '/style-guide': typeof StyleGuideRouteRouteWithChildren
+  '/lab/canvas-cc': typeof LabCanvasCcRouteRoute
+  '/lab/': typeof LabIndexRoute
   '/style-guide/': typeof StyleGuideIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/lab/canvas-cc': typeof LabCanvasCcRouteRoute
+  '/lab': typeof LabIndexRoute
   '/style-guide': typeof StyleGuideIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/lab': typeof LabRouteRouteWithChildren
   '/style-guide': typeof StyleGuideRouteRouteWithChildren
+  '/lab/canvas-cc': typeof LabCanvasCcRouteRoute
+  '/lab/': typeof LabIndexRoute
   '/style-guide/': typeof StyleGuideIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/style-guide' | '/style-guide/'
+  fullPaths:
+    '/' | '/lab' | '/style-guide' | '/lab/canvas-cc' | '/lab/' | '/style-guide/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/style-guide'
-  id: '__root__' | '/' | '/style-guide' | '/style-guide/'
+  to: '/' | '/lab/canvas-cc' | '/lab' | '/style-guide'
+  id:
+    | '__root__'
+    | '/'
+    | '/lab'
+    | '/style-guide'
+    | '/lab/canvas-cc'
+    | '/lab/'
+    | '/style-guide/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  LabRouteRoute: typeof LabRouteRouteWithChildren
   StyleGuideRouteRoute: typeof StyleGuideRouteRouteWithChildren
 }
 
@@ -66,12 +101,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/lab': {
+      id: '/lab'
+      path: '/lab'
+      fullPath: '/lab'
+      preLoaderRoute: typeof LabRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/style-guide': {
       id: '/style-guide'
       path: '/style-guide'
       fullPath: '/style-guide'
       preLoaderRoute: typeof StyleGuideRouteRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/lab/': {
+      id: '/lab/'
+      path: '/'
+      fullPath: '/lab/'
+      preLoaderRoute: typeof LabIndexRouteImport
+      parentRoute: typeof LabRouteRoute
+    }
+    '/lab/canvas-cc': {
+      id: '/lab/canvas-cc'
+      path: '/canvas-cc'
+      fullPath: '/lab/canvas-cc'
+      preLoaderRoute: typeof LabCanvasCcRouteRouteImport
+      parentRoute: typeof LabRouteRoute
     }
     '/style-guide/': {
       id: '/style-guide/'
@@ -82,6 +138,20 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface LabRouteRouteChildren {
+  LabCanvasCcRouteRoute: typeof LabCanvasCcRouteRoute
+  LabIndexRoute: typeof LabIndexRoute
+}
+
+const LabRouteRouteChildren: LabRouteRouteChildren = {
+  LabCanvasCcRouteRoute: LabCanvasCcRouteRoute,
+  LabIndexRoute: LabIndexRoute,
+}
+
+const LabRouteRouteWithChildren = LabRouteRoute._addFileChildren(
+  LabRouteRouteChildren,
+)
 
 interface StyleGuideRouteRouteChildren {
   StyleGuideIndexRoute: typeof StyleGuideIndexRoute
@@ -97,6 +167,7 @@ const StyleGuideRouteRouteWithChildren = StyleGuideRouteRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LabRouteRoute: LabRouteRouteWithChildren,
   StyleGuideRouteRoute: StyleGuideRouteRouteWithChildren,
 }
 export const routeTree = rootRouteImport
